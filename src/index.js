@@ -20,8 +20,6 @@ buttonEl.classList.add('is-hidden');
 formEl.addEventListener('submit', onSubmitForm);
 buttonEl.addEventListener('click', onLoadMore);
 
-
-
 function onSubmitForm(event) {
    event.preventDefault();
  
@@ -41,16 +39,22 @@ function onLoadMore() {
 }
 
 function markupGallery(data) {
-    if(apiService.page === 2) {
-        let totalHits = data.totalHits;
-        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-            buttonEl.classList.remove('is-hidden');
-    
-    } else if(data.totalHits !== 0 && data.hits.length === 0) {
+    if (data.totalHits === 0) {
+        Notiflix.Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.',
+        );
+        return
+    }
+    else if (data.totalHits !== 0 && data.hits.length === 0) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
         buttonEl.classList.add('is-hidden');
+        
+    } else if (apiService.page === 2) {
+        let totalHits = data.totalHits;
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+        buttonEl.classList.remove('is-hidden');
     }
-
+        
     galleryEl.insertAdjacentHTML('beforeend', markupHbs(data.hits));
     galleryBox.refresh();
 };

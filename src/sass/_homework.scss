@@ -58,6 +58,11 @@ body {
     cursor: pointer;
 }
 
+.search-form button:hover,
+.search-form button:focus {
+    background: #136257;
+}
+
 .load-more {
     display: block;
     margin-left: auto;
@@ -66,6 +71,11 @@ body {
     margin-bottom: 20px;
     background: #7BA7AB;
     border-radius: 5px;
+}
+
+.load-more:hover,
+.load-more:focus {
+    background: #136257;
 }
 
 .is-hidden {
